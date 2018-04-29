@@ -17,8 +17,7 @@ RUN mkdir -p /var/run/asterisk \
 	&& mkdir -p /var/log/asterisk \
 	&& mkdir -p /var/spool/asterisk \
 	&& mkdir -p /usr/lib/asterisk \
-	&& mkdir -p /var/www \
-	&& mkdir -p /var/lib/asterisk/sounds/
+	&& mkdir -p /var/www/
 
 # Add Asterisk user
 RUN useradd -m $ASTERISKUSER \
@@ -35,7 +34,7 @@ RUN useradd -m $ASTERISKUSER \
 WORKDIR /var/lib/asterisk/sounds
 RUN curl -f -o asterisk-core-sounds-ru-g729-current.tar.gz -L http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-ru-g729-current.tar.gz \
 	&& tar -xzf asterisk-core-sounds-ru-g729-current.tar.gz \
-	&& rm -f asterisk-core-sounds-ru-g729-current.tar.gz \
+	&& rm -f asterisk-core-sounds-ru-g729-current.tar.gz
 	
 RUN apt-get update && apt-get install -y unzip 
 
