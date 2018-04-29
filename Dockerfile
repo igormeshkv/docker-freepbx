@@ -47,20 +47,6 @@ RUN curl -f -o asterisk-core-sounds-en-wav-current.tar.gz -L http://downloads.as
 	
 RUN apt-get update && apt-get install -y unzip 
 
-# Download German sounds
-RUN mkdir /var/lib/asterisk/sounds/de
-WORKDIR /var/lib/asterisk/sounds/de 
-RUN curl -f -o core.zip -L https://www.asterisksounds.org/de/download/asterisk-sounds-core-de-sln16.zip \
-	&& curl -f -o extra.zip -L https://www.asterisksounds.org/de/download/asterisk-sounds-extra-de-sln16.zip \
-	&& unzip -u core.zip \
-	&& unzip -u extra.zip 
-RUN rm -f core.zip \
-	&& rm -f extra.zip 
-RUN chown -R $ASTERISKUSER.$ASTERISKUSER /var/lib/asterisk/sounds/de  \
-	&& find /var/lib/asterisk/sounds/de -type d -exec chmod 0775 {} \;
-
-
-
 RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 
 # Upgrade base system
@@ -179,6 +165,8 @@ RUN rm -r /usr/src/asterisk
 
 WORKDIR /tmp
 
+# Add G729 Codecs
+curl -sSLo /usr/lib/asterisk/modules/codec_g729.so http://asterisk.hosting.lv/bin/codec_g729-ast140-gcc4-glibc-x86_64-core2-sse4.so ; \
 
 # 2nd dependency download (Placing it here avoids recompiling asterisk&co during docker build)
 RUN apt-get install -y \
