@@ -17,7 +17,8 @@ RUN mkdir -p /var/run/asterisk \
 	&& mkdir -p /var/log/asterisk \
 	&& mkdir -p /var/spool/asterisk \
 	&& mkdir -p /usr/lib/asterisk \
-	&& mkdir -p /var/www/
+	&& mkdir -p /var/www \
+	&& mkdir -p /var/lib/asterisk/sounds/
 
 # Add Asterisk user
 RUN useradd -m $ASTERISKUSER \
