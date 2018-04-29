@@ -104,7 +104,7 @@ RUN chown -R $ASTERISKUSER. /var/www/* \
 
 
 # Install Legacy pear requirements
-# RUN pear install Console_Getopt
+RUN pear install Console_GetoptPlus
 
 # Compile and install pjproject
 WORKDIR /usr/src
