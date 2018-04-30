@@ -203,7 +203,7 @@ RUN /install-freepbx.sh
 RUN rm -rf /usr/src/freepbx
 
 #### Add G729 Codecs
-RUN curl -sSLo /usr/lib/asterisk/modules/codec_g729.so http://asterisk.hosting.lv/bin/codec_g729-ast140-gcc4-glibc-x86_64-core2-sse4.so
+RUN curl -sSLo /usr/lib/asterisk/modules/codec_g729.so http://asterisk.hosting.lv/bin/codec_g729-ast130-gcc4-glibc-x86_64-core2-sse4.so
 
 
 ##################
