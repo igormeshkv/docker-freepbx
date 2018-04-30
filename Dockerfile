@@ -38,7 +38,7 @@ RUN curl -f -o asterisk-core-sounds-ru-g729-current.tar.gz -L http://downloads.a
 	
 RUN apt-get update && apt-get install -y unzip 
 
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+RUN echo "ru_RU.UTF-8 UTF-8" > /etc/locale.gen
 
 # Upgrade base system
 RUN apt-get update && apt-get -y upgrade
