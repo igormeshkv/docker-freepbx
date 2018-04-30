@@ -1,4 +1,11 @@
+# This dockerfile and configuration is derived by
+# Jason Martin <jason@greenpx.co.uk>
+# Many Thanks to the  author in this place!
+
+
 FROM j1mr10rd4n/debian-baseimage-docker:8.2.1
+MAINTAINER Michael Mayer <swd@michael-mayer.biz>
+
 
 # Set environment variables
 ENV DEBIAN_FRONTEND noninteractive
@@ -22,15 +29,16 @@ RUN useradd -m $ASTERISKUSER \
 	&& chown -R $ASTERISKUSER. /usr/lib/asterisk \
 	&& chown -R $ASTERISKUSER. /var/www/ 
 	
+
 # Download extra high quality sounds
-#WORKDIR /var/lib/asterisk/sounds
-#RUN curl -f -o asterisk-core-sounds-ru-g729-current.tar.gz -L http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-ru-g729-current.tar.gz \
-#	&& tar -xzf asterisk-core-sounds-ru-g729-current.tar.gz \
-#	&& rm -f asterisk-core-sounds-ru-g729-current.tar.gz
+WORKDIR /var/lib/asterisk/sounds
+RUN curl -f -o asterisk-core-sounds-ru-g729-current.tar.gz -L http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-ru-g729-current.tar.gz \
+	&& tar -xzf asterisk-core-sounds-ru-g729-current.tar.gz \
+	&& rm -f asterisk-core-sounds-ru-g729-current.tar.gz
 	
 RUN apt-get update && apt-get install -y unzip 
 
-RUN echo "ru_RU.UTF-8 UTF-8" > /etc/locale.gen
+RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 
 # Upgrade base system
 RUN apt-get update && apt-get -y upgrade
@@ -40,6 +48,7 @@ CMD ["/sbin/my_init"]
 
 # *Loosely* Following steps on FreePBX wiki
 # http://wiki.freepbx.org/display/FOP/Installing+FreePBX+13+on+Ubuntu+Server+14.04.2+LTS
+
 
 # Install Required Dependencies
 RUN apt-get install -y \
@@ -92,6 +101,7 @@ COPY conf/mpm_prefork.conf /etc/apache2/mods-available/mpm_prefork.conf
 
 RUN chown -R $ASTERISKUSER. /var/www/* \
 	&& rm -rf /var/www/html
+
 
 # Install Legacy pear requirements
 # RUN pear install Console_Getopt
@@ -146,8 +156,6 @@ RUN rm -r /usr/src/asterisk
 
 WORKDIR /tmp
 
-#### Add G729 Codecs
-       curl -sSLo /usr/lib/asterisk/modules/codec_g729.so http://asterisk.hosting.lv/bin/codec_g729-ast140-gcc4-glibc-x86_64-core2-sse4.so
 
 # 2nd dependency download (Placing it here avoids recompiling asterisk&co during docker build)
 RUN apt-get install -y \
@@ -200,6 +208,14 @@ COPY install-freepbx.sh /
 RUN chmod +x /install-freepbx.sh
 RUN /install-freepbx.sh
 RUN rm -rf /usr/src/freepbx
+
+
+
+
+
+
+
+
 
 ##################
 # Cleanup
