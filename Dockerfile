@@ -1,11 +1,4 @@
-# This dockerfile and configuration is derived by
-# Jason Martin <jason@greenpx.co.uk>
-# Many Thanks to the  author in this place!
-
-
 FROM j1mr10rd4n/debian-baseimage-docker:8.2.1
-MAINTAINER Michael Mayer <swd@michael-mayer.biz>
-
 
 # Set environment variables
 ENV DEBIAN_FRONTEND noninteractive
