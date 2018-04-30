@@ -23,10 +23,10 @@ RUN useradd -m $ASTERISKUSER \
 	&& chown -R $ASTERISKUSER. /var/www/ 
 	
 # Download extra high quality sounds
-WORKDIR /var/lib/asterisk/sounds
-RUN curl -f -o asterisk-core-sounds-ru-g729-current.tar.gz -L http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-ru-g729-current.tar.gz \
-	&& tar -xzf asterisk-core-sounds-ru-g729-current.tar.gz \
-	&& rm -f asterisk-core-sounds-ru-g729-current.tar.gz
+#WORKDIR /var/lib/asterisk/sounds
+#RUN curl -f -o asterisk-core-sounds-ru-g729-current.tar.gz -L http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-ru-g729-current.tar.gz \
+#	&& tar -xzf asterisk-core-sounds-ru-g729-current.tar.gz \
+#	&& rm -f asterisk-core-sounds-ru-g729-current.tar.gz
 	
 RUN apt-get update && apt-get install -y unzip 
 
