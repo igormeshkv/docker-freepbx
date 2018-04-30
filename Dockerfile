@@ -32,9 +32,18 @@ RUN useradd -m $ASTERISKUSER \
 
 # Download extra high quality sounds
 WORKDIR /var/lib/asterisk/sounds
-RUN curl -f -o asterisk-core-sounds-ru-g729-current.tar.gz -L http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-ru-g729-current.tar.gz \
-	&& tar -xzf asterisk-core-sounds-ru-g729-current.tar.gz \
-	&& rm -f asterisk-core-sounds-ru-g729-current.tar.gz
+RUN curl -f -o asterisk-core-sounds-en-wav-current.tar.gz -L http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-en-wav-current.tar.gz \
+	&& tar -xzf asterisk-core-sounds-en-wav-current.tar.gz \
+	&& rm -f asterisk-core-sounds-en-wav-current.tar.gz \
+	&& curl -f -o asterisk-extra-sounds-en-wav-current.tar.gz -L http://downloads.asterisk.org/pub/telephony/sounds/asterisk-extra-sounds-en-wav-current.tar.gz \
+	&& tar -xzf asterisk-extra-sounds-en-wav-current.tar.gz \
+	&& rm -f asterisk-extra-sounds-en-wav-current.tar.gz \
+	&& curl -f -o asterisk-core-sounds-en-g722-current.tar.gz -L http://downloads.asterisk.org/pub/telephony/sounds/asterisk-core-sounds-en-g722-current.tar.gz \
+	&& tar -xzf asterisk-core-sounds-en-g722-current.tar.gz \
+	&& rm -f asterisk-core-sounds-en-g722-current.tar.gz \
+	&& curl -f -o asterisk-extra-sounds-en-g722-current.tar.gz -L http://downloads.asterisk.org/pub/telephony/sounds/asterisk-extra-sounds-en-g722-current.tar.gz \
+	&& tar -xzf asterisk-extra-sounds-en-g722-current.tar.gz \
+	&& rm -f asterisk-extra-sounds-en-g722-current.tar.gz
 	
 RUN apt-get update && apt-get install -y unzip 
 
@@ -104,7 +113,7 @@ RUN chown -R $ASTERISKUSER. /var/www/* \
 
 
 # Install Legacy pear requirements
-RUN pear install Console_GetoptPlus-1.0.0RC1
+# RUN pear install Console_Getopt
 
 # Compile and install pjproject
 WORKDIR /usr/src
@@ -156,8 +165,6 @@ RUN rm -r /usr/src/asterisk
 
 WORKDIR /tmp
 
-#### Add G729 Codecs
-       curl -sSLo /usr/lib/asterisk/modules/codec_g729.so http://asterisk.hosting.lv/bin/codec_g729-ast140-gcc4-glibc-x86_64-core2-sse4.so
 
 # 2nd dependency download (Placing it here avoids recompiling asterisk&co during docker build)
 RUN apt-get install -y \
