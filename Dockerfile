@@ -38,7 +38,7 @@ RUN curl -f -o asterisk-core-sounds-ru-g729-current.tar.gz -L http://downloads.a
 	
 RUN apt-get update && apt-get install -y unzip 
 
-RUN echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+RUN echo "ru_RU.UTF-8 UTF-8" > /etc/locale.gen
 
 # Upgrade base system
 RUN apt-get update && apt-get -y upgrade
@@ -208,10 +208,6 @@ COPY install-freepbx.sh /
 RUN chmod +x /install-freepbx.sh
 RUN /install-freepbx.sh
 RUN rm -rf /usr/src/freepbx
-
-
-#### Add G729 Codecs
-curl -sSLo /usr/lib/asterisk/modules/codec_g729.so http://asterisk.hosting.lv/bin/codec_g729-ast140-gcc4-glibc-x86_64-core2-sse4.so
 
 
 ##################
