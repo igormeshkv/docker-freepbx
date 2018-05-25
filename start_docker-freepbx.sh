@@ -2,7 +2,7 @@
 
 # Credit -> https://github.com/BetterVoice/freeswitch-container
 
-CID=$(sudo docker run -d -p 5060:5060/udp -p 80:80/tcp)
+CID=$(sudo docker run -d -p 5060/udp -p 80/tcp)
 
 CIP=$(sudo docker inspect --format='{{.NetworkSettings.IPAddress}}' $CID)
 
